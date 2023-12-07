@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block content %}
+{% if message %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const alertMessage = document.getElementById('alert-message');
+        const customAlert = document.getElementById('custom-alert');
+
+        if (alertMessage && customAlert) {
+            alertMessage.innerText = "{{ message }}";
+            customAlert.classList.add('show'); // Add a class to handle visibility
+        }
+    });
+
+    function closeAlert() {
+        const customAlert = document.getElementById('custom-alert');
+
+        if (customAlert) {
+            customAlert.classList.remove('show'); // Remove the class to hide the alert
+        }
+    }
+</script>
+{% endif %}
+<div class="container">
+    <form action="/postSignUp/" method="post">
+        <h1>Sign Up</h1> {{ msg }}
+
+        <div class="input">
+            {% csrf_token %}
+            <!-- Username Field -->
+            <div class="input">
+                <input type="text" name="email" id="email" placeholder="" required>
+                <label for="email" class="floating-label">
+                    Email</label>
+                <span class="material-icons">person</span>
+            </div>
+
+            <!-- Password Field -->
+            <div class="input">
+                <input type="password" name="password" id="password" placeholder="" required>
+                <label for="password" class="floating-label">
+                    Password
+                </label>
+                <span class="material-icons">lock</span>
+            </div>
+            <button type="submit" style="margin-top: 50px;">Sign Up</button>
+            <p class=".register-link">Already have an account? <a href="/">Login</a></p>
+        </div>
+    </form>
+    <div id="custom-alert" class="alert-container">
+        {% load static %}
+        <center><img src="{% static 'image/danger.png' %}" class="danger"></center>
+        <p id="alert-message"></p>
+        <span class="close-btn" onclick="closeAlert()">×</span>
+    </div>
+
+</div>
+{% endblock %}

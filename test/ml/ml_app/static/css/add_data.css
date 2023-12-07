@@ -1,0 +1,159 @@
+.main-dashboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: transparent;
+  border-radius: 50px;
+  height: calc(100vh - 80px);
+  flex-grow: 1;
+  margin-right: 2%;
+  margin-left: 2px;
+  margin-bottom: 2%;
+  margin-top: 20px;
+  color: #fff;
+  overflow-y: auto !important;
+}
+
+.main-title {
+  padding-top: 3%;
+  text-align: center;
+  margin-bottom: 20px;
+  font-family: 'Poppins';
+  color: #333
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.form-group {
+  flex: 0 0 calc(33.333% - 10px);
+  /* Adjust as needed for spacing */
+}
+
+label {
+  margin-bottom: 5px;
+  font-size: 20px;
+  font-family: 'Poppins';
+  color: #333;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  background: transparent;
+  border: 1px solid #333;
+}
+
+/* Hide the up and down arrows in all browsers */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button,
+select::-webkit-inner-spin-button,
+select::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input::placeholder,
+select::placeholder {
+  color: #CFE3EB;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  /* This hides the horizontal scrollbar on WebKit browsers (Chrome, Safari) */
+  height: 0;
+  /* This hides the vertical scrollbar on WebKit browsers */
+}
+
+.submit {
+  margin-top: 5%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  padding: 10px;
+  width: 80%;
+  max-width: 300px;
+  /* Optional: Set a max-width for the button */
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1;
+  cursor: pointer;
+  background: #DFDA74;
+  filter: drop-shadow(0 0 4px #333);
+  color: black !important;
+}
+
+.cancel {
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  padding: 10px;
+  width: 80%;
+  max-width: 300px;
+  /* Optional: Set a max-width for the button */
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1;
+  cursor: pointer;
+  background: rgb(223, 141, 116);
+  filter: drop-shadow(0 0 4px #333);
+  color: black !important;
+}
+
+.alert-container {
+  visibility: hidden;
+  height: 0;
+  overflow: hidden;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  width: 350px;
+  background-color: #f2f2f2;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: 0.3s ease-in-out visibility, 0.3s ease-in-out height;
+}
+
+.alert-container.show {
+  visibility: visible;
+  height: 200px;
+  /* Adjust this value based on your content height */
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+#alert-message {
+  margin: auto;
+  text-align: center;
+  font-size: 20px;
+}
+
+.done {
+  color: #329CCE;
+  font-size: 100px;
+  font-weight: bolder;
+}
