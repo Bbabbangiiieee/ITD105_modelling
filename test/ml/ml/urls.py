@@ -34,7 +34,6 @@ urlpatterns = [
     path('addData/', views.addData, name='addData'),
     path('/export/', views.export, name='export'),
     path('logout/', views.log_out, name='logout'),
-    path('/cancel/', views.cancel, name='cancel'),
 
     path('/home_reg/', views.home_reg, name='home_reg'),
     path('/eda_reg/', views.eda_reg, name='eda_reg'),

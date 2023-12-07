@@ -425,7 +425,11 @@ input[type="number"]::placeholder {
 }
 
 #data-table_wrapper.dataTables_wrapper{
-  width: 100%;
+  margin: 2% !important;
+  padding-right: 4% !important;
+  padding-top: 5% !important;
+  padding-bottom: 5% !important;
+  width: 100% !important;
   overflow-x: auto;
 }
 
@@ -434,7 +438,20 @@ label, input, select {
   border-color: #333 !important;
   padding-bottom: 10px;
   overflow:hidden;
-  position: sticky !important;
+}
+
+.dataTables_filter, .dataTables_length{
+  position:fixed !important;
+  top: 23% !important;
+}
+
+.dataTables_info, .dataTables_paginate{
+  position:fixed !important;
+}
+
+.dataTables_filter, .dataTables_paginate{
+  right: 0% !important;
+  padding-right: 4%;
 }
 
 .alert-container {
@@ -503,6 +520,7 @@ input[type="range"] {
   transition: all 0.5s;
   background-color: #333;
   border: 1px solid #333;
+  padding-bottom: 0px !important;
   cursor: pointer;
   margin-top: -6px; /* Adjust the vertical alignment of the thumb */
 }
