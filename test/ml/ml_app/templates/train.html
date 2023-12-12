@@ -35,7 +35,7 @@
 
         if (alertMessage && customAlert) {
             alertMessage.innerText = "Training Sucessful!\nAccuracy Rate is {{ accuracy_scores }}%";
-            customAlert.classList.add('show'); // Add a class to handle visibility
+            customAlert.classList.add('show');
         }
     });
 
@@ -142,7 +142,7 @@
                 <label for="c" class="floating-label">C</label>
                 <input type="number" step="any" name="c" id="c" placeholder="Please input numbers from 0.1 to 2.0"
                     required>
-                <button class="submit">Submit</button>
+                <button class="submit">Train</button>
 
             </form>
         </div>
@@ -162,7 +162,7 @@
 
 <script>
     const toggleButton = document.querySelector('.btn-toggle');
-    const sidebar = document.querySelector('.sidebar'); // Assuming your sidebar has an ID of "sidebar"
+    const sidebar = document.querySelector('.sidebar');
     const main = document.querySelector(".main-dashboard");
 
     toggleButton.addEventListener('click', () => {

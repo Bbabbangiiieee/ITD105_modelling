@@ -35,7 +35,7 @@
 
         if (alertMessage && customAlert) {
             alertMessage.innerText = "Training Sucessful! Mean Absolute Error is {{ accuracy_scores }}";
-            customAlert.classList.add('show'); // Add a class to handle visibility
+            customAlert.classList.add('show'); 
         }
     });
 
@@ -43,7 +43,7 @@
         const customAlert = document.getElementById('custom-alert');
 
         if (customAlert) {
-            customAlert.classList.remove('show'); // Remove the class to hide the alert
+            customAlert.classList.remove('show'); 
         }
     }
 </script>
@@ -153,7 +153,7 @@
 
 <script>
     const toggleButton = document.querySelector('.btn-toggle');
-    const sidebar = document.querySelector('.sidebar'); // Assuming your sidebar has an ID of "sidebar"
+    const sidebar = document.querySelector('.sidebar');
     const main = document.querySelector(".main-dashboard");
 
     toggleButton.addEventListener('click', () => {

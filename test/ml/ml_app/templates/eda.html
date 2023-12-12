@@ -129,7 +129,9 @@
             </div>
         </div>
 
+        
         <div class="dashboard-row" style="padding-bottom: 0px !important">
+            <!-- Density Plot -->
             <div class="density">
                 <h3 class="chart_title">Density Plots</h3>
                 {{ scripts_density|safe }}
@@ -197,7 +199,7 @@
 
 <script>
     const toggleButton = document.querySelector('.btn-toggle');
-    const sidebar = document.querySelector('.sidebar'); // Assuming your sidebar has an ID of "sidebar"
+    const sidebar = document.querySelector('.sidebar');
     const main = document.querySelector(".main-dashboard");
     const main2 = document.querySelector(".tables");
 

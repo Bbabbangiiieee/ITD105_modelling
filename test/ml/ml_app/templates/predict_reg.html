@@ -246,7 +246,7 @@
 
 <script>
     const toggleButton = document.querySelector('.btn-toggle');
-    const sidebar = document.querySelector('.sidebar'); // Assuming your sidebar has an ID of "sidebar"
+    const sidebar = document.querySelector('.sidebar');
     const main = document.querySelector(".predict-dashboard");
     const sliders = document.querySelectorAll('input[type="range"]');
 
@@ -365,9 +365,7 @@
     $(document).ready(function () {
         // Function to update the result on the page
         function updateResult(predictedLabel) {
-            // Your existing logic to update the result
-            // ...
-
+            
             // Update the result section
             $('.result_text').html("The productivity rate of the workers is: <strong style='color: white !important;'>" + predictedLabel + "</strong>");
         }

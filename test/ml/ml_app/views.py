@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 import pyrebase
 import firebase_admin
 from firebase_admin import credentials, firestore, auth
@@ -72,7 +72,7 @@ def log_out(request):
     try:
         firebase_auth.current_user = None  # Sign out the user from Firebase
     except KeyError:
-        pass  # Handle the case where 'uid' doesn't exist in the session
+        pass
     return redirect('/')
 
 def home_class (request):
@@ -112,7 +112,7 @@ def firestore_data_view(request):
             ('Class', '@Class'),
             ('Frequency', '@Frequency'),
         ],
-        mode='vline'  # Show the tooltip when hovering vertically over bars
+        mode='vline' 
     )
 
     # Add the HoverTool to the figure
@@ -239,7 +239,6 @@ def firestore_data_view(request):
     # Create Bokeh components for correlation matrix plot
     script_relations, div_relations = components(relations)
 
-    # Pass the components to the HTML template
     return render(request, 'eda.html', {
         "data_head_json": json.loads(data_head_json),
         'script_bar': script_bar, 
@@ -276,14 +275,13 @@ def train_model(request):
         dataframe['Minor_Axis_Length'] = dataframe['Minor_Axis_Length'].astype(float)
         dataframe['Area'] = dataframe['Area'].astype(int)
 
-        # If 'Class' is the target variable
+        
         label_encoder = LabelEncoder()
         dataframe['Class'] = label_encoder.fit_transform(dataframe['Class'])
         Y = dataframe['Class'].values  # Use 'Class' as the target variable
 
-        # Extract features, excluding 'Area' and 'Class'
+        # Extract features excluding 'Class'
         X = dataframe.drop(['Class'], axis=1).values
-        print(X)
 
         num_folds = int(request.POST.get('num_fold'))
         seed = int(request.POST.get('random_state'))
@@ -300,7 +298,7 @@ def train_model(request):
 
             model.fit(X_train, Y_train)
 
-            # Optionally, you can evaluate the model on the test set and store the accuracy
+            # Evaluate the model on the test set and store the accuracy
             Y_pred = model.predict(X_test)
             accuracy = accuracy_score(Y_test, Y_pred)
             accuracy_scores.append(accuracy)
@@ -314,15 +312,11 @@ def train_model(request):
         if os.path.exists(model_filename):
             os.remove(model_filename)
 
-        # Save the trained model to a new file using joblib for long-term persistence
+        # Save the trained model
         joblib.dump((model, label_encoder), model_filename)
 
         # Calculate and print the mean accuracy
         mean_accuracy = round(((sum(accuracy_scores) / num_folds) * 100), 2)
-
-        # Optionally, you can save the trained model or its parameters to use later
-        # e.g., model.save('path/to/trained_model.joblib')
-
         print(f'Mean Accuracy: {mean_accuracy}')
 
         return render(request, 'train.html', {'accuracy_scores': mean_accuracy})
@@ -332,7 +326,6 @@ def predict_view(request):
 
 def postPredict(request):
     if request.method == 'POST':
-        print("hello")
         # Get user input from the form
         user_input = {
             'Extent': float(request.POST.get('extent')),
@@ -402,10 +395,16 @@ def export (request):
         df.append(doc.to_dict())
 
     data = pd.DataFrame(df)
-    data.to_excel('rice_data.xlsx', index=False)
+        # Save DataFrame as CSV
+    data.to_csv('productivity_data.csv', index=False)
 
-    return render (request, 'add_data.html')
+    # Open the file in binary mode for reading
+    with open('rice_data.csv', 'rb') as csv_file:
+        response = HttpResponse(csv_file.read(), content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename=productivity_data.csv'
 
+    # Return the response
+    return response
 
 
 def home_reg (request):
@@ -432,7 +431,7 @@ def eda_reg(request):
 
     # Loop through each numeric column and create a density plot
     density_plots = []
-    # Assuming you have the Spectral11 colormap
+    #creating color map
     original_cmap = ['#A2346F', '#8563AE', '#004F7C', '#e31a1c', '#A2346F', '#8D7257', '#374955', '#007260', '#004F7C', '#A2346F', '#e31a1c', '#8563AE', '#8D7257', '#374955']
 
     for numeric_column, color in zip(numeric_columns, original_cmap):
@@ -471,7 +470,6 @@ def eda_reg(request):
         row(density_plots[6], density_plots[7], density_plots[8]),
         row(density_plots[9], density_plots[10], density_plots[11]),
         row(density_plots[12], density_plots[1])
-        # Add more rows as needed
     )
 
     # Create Bokeh components for density plots
@@ -533,7 +531,6 @@ def eda_reg(request):
     # Create Bokeh components for correlation matrix plot
     script_relations, div_relations = components(relations)
 
-    # Pass the components to the HTML template
     return render(request, 'eda_reg.html', {
         "data_head_json": json.loads(data_head_json),
         'scripts_density': scripts_density,
@@ -580,8 +577,17 @@ def export_reg(request):
         df.append(doc.to_dict())
 
     data = pd.DataFrame(df)
-    data.to_excel('productivity_data.xlsx', index=False)
-    return render (request, "eda_reg.html")
+    
+    # Save DataFrame as CSV
+    data.to_csv('productivity_data.csv', index=False)
+
+    # Open the file in binary mode for reading
+    with open('productivity_data.csv', 'rb') as csv_file:
+        response = HttpResponse(csv_file.read(), content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename=productivity_data.csv'
+
+    # Return the response
+    return response
 
 def train_model_reg(request):
     return render (request, "train_reg.html")
@@ -598,7 +604,7 @@ def postTrain_reg(request):
 
         dataframe = pd.DataFrame(df)
 
-        Y = dataframe['actual_productivity'].values  # Use 'Class' as the target variable
+        Y = dataframe['actual_productivity'].values 
 
         # Extract features, excluding 'actual_productivity'
         X = dataframe.drop(['actual_productivity'], axis=1)
@@ -630,8 +636,7 @@ def postTrain_reg(request):
         if os.path.exists(model_filename):
             os.remove(model_filename)
 
-        # Save the trained model to a new file using joblib for long-term persistence
-        # Save model
+        #save model
         joblib.dump(linear_model, model_filename)
 
         # Save the scaler for future use during prediction
