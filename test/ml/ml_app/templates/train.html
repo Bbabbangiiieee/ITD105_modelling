@@ -1,31 +1,40 @@
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Train Model</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <title>
+    Soft UI Dashboard by Creative Tim
+  </title>
+  <!--     Fonts and icons     -->
+  <link rel="icon" type="image/x-icon" href='{% static "image/logo.png" %}'>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" />
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/sidebars.css' %}" />
-    <script src="{% static 'js/bootstrap.bundle.min.js'%}"></script>
-
-    <style>
-        body {
-            background: linear-gradient(to right, #329CCE, rgb(189, 185, 104));
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+  <script src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
+  <style>
+    body {
+        background-image: url('{% static "image/background.jpg" %}');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+</style>
 </head>
 {% if accuracy_scores %}
 <script>
@@ -34,8 +43,8 @@
         const customAlert = document.getElementById('custom-alert');
 
         if (alertMessage && customAlert) {
-            alertMessage.innerText = "Training Sucessful!\nAccuracy Rate is {{ accuracy_scores }}%";
-            customAlert.classList.add('show');
+            alertMessage.innerText = "Training Sucessful! Accuracy Rate is {{ accuracy_scores }}%";
+            customAlert.classList.add('show'); 
         }
     });
 
@@ -43,112 +52,259 @@
         const customAlert = document.getElementById('custom-alert');
 
         if (customAlert) {
-            customAlert.classList.remove('show'); // Remove the class to hide the alert
+            customAlert.classList.remove('show'); 
         }
     }
 </script>
 {% endif %}
-
-<body>
-    <header class="p-3 mb-3 border-bottom header">
-        <div class="container-fluid d-grid gap-3 d-flex flex-wrap align-items-center justify-content-center"
-            style="grid-template-columns: 1fr 2fr;">
-            <p class="nav col-12 col-lg-auto me-lg-auto mb-2 mb-lg-0 justify-content-center mb-md-0 nav-link px-2 link-body-emphasis centeredp"
-                style="color: #CFE3EB !important; padding-left:50px !important;font-size: 20px !important;">
-                Rice Classifier (Cammeo and Osmancik)
-            </p>
-
-            <div class="dropdown text-end">
-                <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
-                    data-bs-toggle="dropdown" aria-expanded="false" style="color: #CFE3EB !important; font-size: 20px;">
-                    <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
-                    User Profile
-                </a>
-                <ul class="dropdown-menu text-small">
-                    <li><a class="dropdown-item" href="{% url 'home_reg' %}">Regression</a></li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li><a class="dropdown-item" href="{% url 'logout' %}" id="logout">Sign out</a></li>
-                </ul>
-            </div>
-
+<body class="g-sidenav-show  bg-gray-100">
+    <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3" style="overflow: hidden !important;"
+        id="sidenav-main">
+        <div class="sidenav-header">
+            <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
+                aria-hidden="true" id="iconSidenav"></i>
+            <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/soft-ui-dashboard/pages/dashboard.html "
+                target="_blank">
+                <img src='{% static "image/logo.png" %}' class="navbar-brand-img h-100" alt="main_logo">
+                <span class="ms-1 font-weight-bold inactive" style="font-size: 20px !important;">Fibré</span>
+            </a>
         </div>
-        </div>
-    </header>
-
-    <nav class="col-3">
-        <button class="btn btn-toggle" type="button" aria-expanded="false" style="color: #333 !important;">
-            <span class="material-symbols-outlined">menu</span>
-        </button>
-
-        <div class="d-flex flex-column flex-shrink-0 p-3 sidebar" style="width: 280px;">
-
-            <ul class="nav nav-pills flex-column mb-auto items">
-                <li class="nav-item" style="margin-top: 30% !important;">
-                    <a href="{% url 'home_class' %}" class="nav-link" aria-current="page"
-                        style="font-family: 'Poppins' !important;color: #333 !important;">
-                        <span class="material-symbols-outlined icon">
-                            home
-                        </span>
-                        Home
+        <hr class="horizontal dark mt-0">
+        <div class="collapse navbar-collapse  w-auto ">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home_class' %}">
+                        <div
+                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                            <span class="material-symbols-outlined">
+                                home
+                            </span>
+                        </div>
+                        <span class="nav-link-text ms-1 inactive">Home</span>
                     </a>
                 </li>
-                <li>
-                    <a href="{% url 'eda' %}" class="nav-link text-white"
-                        style="font-family: 'Poppins' !important;color: #333 !important;">
-                        <span class="material-symbols-outlined icon">
-                            monitoring</span>
-                        EDA
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'eda' %}">
+                        <div
+                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                            <span class="material-symbols-outlined">
+                                monitoring</span>
+                        </div>
+                        <span class="nav-link-text ms-1 inactive">EDA</span>
                     </a>
                 </li>
-                <li>
-                    <a href="{% url 'train' %}" class="nav-link text-white"
-                        style="font-family: 'Poppins' !important;color: #333 !important;">
-                        <span class="material-symbols-outlined icon">
-                            model_training</span>
-                        Train
+                <li class="nav-item">
+                    <a class="nav-link " href="{% url 'add_data' %}">
+                        <div
+                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                            <span class="material-symbols-outlined">
+                                add
+                                </span>
+                        </div>
+                        <span class="nav-link-text ms-1 inactive">Add Data</span>
                     </a>
                 </li>
-                <li>
-                    <a href="{% url 'predict' %}" class="nav-link text-white"
-                        style="font-family: 'Poppins' !important;color: #333 !important;">
-                        <span class="material-symbols-outlined icon">
-                            online_prediction
-                        </span>
-                        Predict
+                <li class="nav-item">
+                    <a class="nav-link  active" href="{% url 'train' %}">
+                        <div
+                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                            <span class="material-symbols-outlined">
+                                model_training</span>
+                        </div>
+                        <span class="nav-link-text ms-1">Train</span>
+                    </a>
+                </li>
+                <li class="nav-item mt-3">
+                    <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6 inactive" >Account pages</h6>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link  " href="{% url 'home_reg' %}">
+                        <div
+                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                            <svg width="12px" height="12px" viewBox="0 0 40 44" version="1.1"
+                                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <span class="material-symbols-outlined">
+                                    alt_route
+                                </span>
+                            </svg>
+                        </div>
+                        <span class="nav-link-text ms-1 inactive" >Regression</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link  " href="{% url 'logout' %}">
+                        <div
+                            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                            <svg width="12px" height="20px" viewBox="0 0 40 40" version="1.1"
+                                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <span class="material-symbols-outlined">
+                                    logout
+                                </span>
+
+                            </svg>
+                        </div>
+                        <span class="nav-link-text ms-1 inactive">Logout</span>
                     </a>
                 </li>
             </ul>
-
         </div>
+
+    </aside>
+  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <!-- Navbar -->
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
+      <div class="container-fluid py-1 px-3">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+            <li class="breadcrumb-item text-sm"><a class="opacity-5" href="javascript:;">Classification</a></li>
+            <li class="breadcrumb-item text-sm active" aria-current="page">Train and Predict</li>
+          </ol>
+          <h6 class="font-weight-bolder mb-0">Train and Predict</h6>
+        </nav>
+        <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+          <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+          </div>
+          <ul class="navbar-nav  justify-content-end">
+            <li class="nav-item d-flex align-items-center">
+              <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
+                <i class="fa fa-user me-sm-1"></i>
+                <span class="d-sm-inline d-none">User Profile</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
     </nav>
-
-    <div class="main-dashboard" aria-expanded="false">
-        <div class="main-title">
-            <h1>Train Model</h1>
+    <!-- End Navbar -->
+    <div class="container-fluid py-4">
+        <div class="row">
+          <div class="">
+            <div class="row">
+              <div class="">
+                <div class="card">
+                  <div class="overflow-hidden position-relative border-radius-xl">
+                    <span class="mask"></span>
+                    <div class="card-body position-relative z-index-1 p-3">
+                        <center><h4>Train Dataset</h4>
+                            <form action="/postTrain/" method="POST" class="tform">
+                            {%csrf_token %}
+            
+                            <label for="num_fold" class="floating-label">Number of Folds</label>
+                            <input type="number" name="num_fold" id="num_fold" placeholder="Input from 10 to 50"
+                                required>
+                            <label for="random_state" class="floating-label">Random State</label>
+                            <input type="number" name="random_state" id="random_state"
+                                placeholder="Input from 5 to 20" required>
+                            <label for="c" class="floating-label">C</label>
+                            <input type="number" step="any" name="c" id="c" placeholder="Input from 0.1 to 2.0"
+                                required>
+                            <button class="submit btn-eda">Train</button>
+            
+                        </form></center>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
         </div>
+        <div class="row">
+          <div class="col-md-7 mt-4">
+            <div class="card">
+              <div class="card-header pb-0 px-3">
+                <center><h4 class="mb-0">Set Attribute Values</h4></center>
+              </div>
+              <div class="card-body pt-4 p-3">
+                <form id="predictionForm" method="post">
+                    {% csrf_token %}
+                    <div class="slider_row">
 
-        <div class="train_form">
-            <form action="/postTrain/" method="POST" class="tform">
-                {%csrf_token %}
+                        <div class="slider_input">
+                            <label for="area" class="slider_label">Area</label>
+                            <input type="range" name="area" id="area" min="5000" max="20000" aria-expanded="false"
+                                required>
+                            <span id="area-value" class="input_value"></span>
+                        </div>
+                    </div>
+                    <div class="slider_row">
 
-                <label for="num_fold" class="floating-label">Number of Folds</label>
-                <input type="number" name="num_fold" id="num_fold" placeholder="Please input numbers from 10 to 50"
-                    required>
-                <label for="random_state" class="floating-label">Random State</label>
-                <input type="number" name="random_state" id="random_state"
-                    placeholder="Please input numbers from 5 to 20" required>
-                <label for="c" class="floating-label">C</label>
-                <input type="number" step="any" name="c" id="c" placeholder="Please input numbers from 0.1 to 2.0"
-                    required>
-                <button class="submit">Train</button>
+                        <div class="slider_input">
+                            <label for="perimeter" class="slider_label">Perimeter</label>
+                            <input type="range" name="perimeter" id="perimeter" min="100" max="1000" step="any"
+                                aria-expanded="false" required>
+                            <span id="perimeter-value" class="input_value"></span>
+                        </div>
+                    </div>
 
-            </form>
+                    <div class="slider_row">
+                        <div class="slider_input">
+                            <label for="major_axis_length" class="slider_label">Major Axis Length</label>
+                            <input type="range" name="major_axis_length" id="major_axis_length" min="100" max="500"
+                                step="any" aria-expanded="false" required>
+                            <span id="major_axis_length-value" class="input_value"></span>
+                        </div>
+                    </div>
+
+                    <div class="slider_row">
+                        <div class="slider_input">
+                            <label for="minor_axis_length" class="slider_label">Minor Axis Length</label>
+                            <input type="range" name="minor_axis_length" id="minor_axis_length" min="50" max="200"
+                                step="any" aria-expanded="false" required>
+                            <span id="minor_axis_length-value" class="input_value"></span>
+                        </div>
+                    </div>
+                    <div class="slider_row">
+                        <div class="slider_input">
+                            <label for="eccentricity" class="slider_label">Eccentricity </label>
+                            <input type="range" name="eccentricity" id="eccentricity" min="0" max="1" step="any"
+                                aria-expanded="false" required>
+                            <span id="eccentricity-value" class="input_value"></span>
+                        </div>
+                    </div>
+
+                    <div class="slider_row">
+                        <div class="slider_input">
+                            <label for="convex_area" class="slider_label">Convex Area</label>
+                            <input type="range" name="convex_area" id="convex_area" min="5000" max="20000"
+                                aria-expanded="false" required>
+                            <span id="convex_area-value" class="input_value"></span>
+                        </div>
+                    </div>
+
+                    <div class="slider_row">
+                        <div class="slider_input">
+                            <label for="extent" class="slider_label">Extent</label>
+                            <input type="range" name="extent" id="extent" min="0" max="1" step="any"
+                                aria-expanded="false" required>
+                            <span id="extent-value" class="input_value"></span>
+                        </div>
+                    </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5 mt-4">
+            <div class="card h-100 mb-4">
+              <div class="card-header pb-0 px-3">
+                <div class="">
+                  <div class="">
+                    <center><h4 class="mb-0">Prediction</h4></center>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body pt-4 p-3">
+                <div class="results">
+                    <div class="result_text"></div>
+                    <img class="result_img">
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-    </div>
+      </div>
 
-    <div id="custom-alert" class="alert-container">
+      <div id="custom-alert" class="alert-container">
         {% load static %}
         <center><span class="material-symbols-outlined done">
                 done
@@ -156,29 +312,116 @@
         <p id="alert-message"></p>
         <span class="close-btn" onclick="closeAlert()">×</span>
     </div>
+  </main>
+  
 </body>
 
 </html>
 
 <script>
-    const toggleButton = document.querySelector('.btn-toggle');
-    const sidebar = document.querySelector('.sidebar');
-    const main = document.querySelector(".main-dashboard");
+    // Function to format the value with six decimal places
+    function formatValue(value) {
+        return parseFloat(value).toFixed(6);
+    }
 
-    toggleButton.addEventListener('click', () => {
-        const isExpanded = toggleButton.getAttribute('aria-expanded') === 'true';
+    // Function to update value display when the slider is changed
+    function updateValueDisplay(sliderId, valueDisplayId, inputType) {
+        const slider = document.getElementById(sliderId);
+        const valueDisplay = document.getElementById(valueDisplayId);
 
-        if (isExpanded) {
-            toggleButton.setAttribute('aria-expanded', 'false');
-            main.setAttribute('aria-expanded', 'false');
-        } else {
-            toggleButton.setAttribute('aria-expanded', 'true');
-            main.setAttribute('aria-expanded', 'true');
+        if (slider && valueDisplay) {
+            const value = parseFloat(slider.value);
+
+            if (inputType === 'float') {
+                // If the input type is 'float', display with six decimal places
+                valueDisplay.textContent = formatValue(value);
+            } else {
+                // If the input type is 'int', round to the nearest whole number
+                valueDisplay.textContent = Math.round(value);
+            }
+        }
+    }
+
+    // Add event listeners for each slider
+    document.getElementById('area').addEventListener('input', function () {
+        const inputType = 'int';
+        updateValueDisplay('area', 'area-value', inputType);
+    });
+
+    document.getElementById('perimeter').addEventListener('input', function () {
+        const inputType = 'float';
+        updateValueDisplay('perimeter', 'perimeter-value', inputType);
+    });
+
+    document.getElementById('major_axis_length').addEventListener('input', function () {
+        const inputType = 'float';
+        updateValueDisplay('major_axis_length', 'major_axis_length-value', inputType);
+    });
+
+    document.getElementById('minor_axis_length').addEventListener('input', function () {
+        const inputType = 'float';
+        updateValueDisplay('minor_axis_length', 'minor_axis_length-value', inputType);
+    });
+
+    document.getElementById('eccentricity').addEventListener('input', function () {
+        const inputType = 'float';
+        updateValueDisplay('eccentricity', 'eccentricity-value', inputType);
+    });
+
+    document.getElementById('convex_area').addEventListener('input', function () {
+        const inputType = 'int';
+        updateValueDisplay('convex_area', 'convex_area-value', inputType);
+    });
+
+    document.getElementById('extent').addEventListener('input', function () {
+        const inputType = 'float';
+        updateValueDisplay('extent', 'extent-value', inputType);
+    });
+
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        // Function to update the result on the page
+        function updateResult(predictedLabel) {
+            
+            // Update the result section
+            $('.result_text').html("The type of rice described by the attributes is: <strong style='color: #e7a3e9!important;'>" + predictedLabel + "</strong>");
+
+
+            // Show the corresponding image
+            if (predictedLabel === 'Cammeo') {
+                $('.result_img').attr('src', '{% static "image/cammeo.png" %}');
+            } else if (predictedLabel === 'Osmancik') {
+                $('.result_img').attr('src', '{% static "image/osmancik.png" %}');
+            }
         }
 
-        sidebar.classList.toggle('collapsed');
+        // Submit the form using AJAX when sliders change
+        $('form').on('input', function (e) {
+            e.preventDefault();  // Prevent the default form submission
 
+            // Serialize the form data
+            var formData = $(this).serialize();
 
-
+            // Make an AJAX POST request
+            $.ajax({
+                type: 'POST',
+                url: '/postPredict/',
+                data: formData,
+                headers: { 'X-CSRFToken': $('input[name=csrfmiddlewaretoken]').val() },
+                success: function (data) {
+                    // Update the result on success
+                    console.log(data)
+                    updateResult(data.predicted_label);
+                    console.log("class:" + data.predicted_label)
+                },
+                error: function (error) {
+                    console.error('Error:', error);
+                }
+            });
+        });
     });
 </script>

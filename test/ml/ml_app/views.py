@@ -25,14 +25,14 @@ cred = credentials.Certificate("C:\\Users\\Acer\\Desktop\\machine_learning\\test
 app = firebase_admin.initialize_app(cred)
 
 config = {
-    "apiKey": "AIzaSyA6rvrXeWq3vQsj_eZbGuL_B-TkZ6PpAdM",
-    "authDomain": "machinelearning-608c2.firebaseapp.com",
-    "databaseURL": "https://machinelearning-608c2-default-rtdb.firebaseio.com",
-    "projectId": "machinelearning-608c2",
-    "storageBucket": "machinelearning-608c2.appspot.com",
-    "messagingSenderId": "1069881478656",
-    "appId": "1:1069881478656:web:7b99fe627d4a6f7ff812e5",
-    "measurementId": "G-H5HEBJKLQR"
+    "apiKey": "AIzaSyC-YKbup4vKevTPAOHFzv_gLrjoYrJrCI8",
+    "authDomain": "modelling-acadf.firebaseapp.com",
+    "databaseURL": "https://modelling-acadf-default-rtdb.firebaseio.com",
+    "projectId": "modelling-acadf",
+    "storageBucket": "modelling-acadf.appspot.com",
+    "messagingSenderId": "30422085238",
+    "appId": "1:30422085238:web:5ec68ea3b2a78f92633957",
+    "measurementId": "G-90M5PT2TQJ"
     }
 
 firebase = pyrebase.initialize_app(config)
@@ -88,6 +88,7 @@ def firestore_data_view(request):
     for doc in docs:
         df.append(doc.to_dict())
 
+
     # Convert the list of dictionaries into a Pandas DataFrame
     data = pd.DataFrame(df)
     data_head_json = data.to_json(orient='split')
@@ -100,7 +101,7 @@ def firestore_data_view(request):
     source = ColumnDataSource(data=dict(Class=class_names, Frequency=frequencies))
 
     # Create a Bokeh bar figure
-    bar = figure(x_range=class_names, height=450, width=500, background_fill_color='rgba(0, 0, 0, 0)', 
+    bar = figure(x_range=class_names, height=350, width=450, background_fill_color='rgba(0, 0, 0, 0)', 
            toolbar_location=None, tools="")
     
     # Add bars to the figure
@@ -129,6 +130,7 @@ def firestore_data_view(request):
 
     # Customize the plot (optional)
     bar.title.text_font_size = '16pt'
+    bar.axis.major_label_text_color = '#fff'
     bar.xaxis.major_label_text_font_size = '14pt'
     bar.yaxis.major_label_text_font_size = '14pt'
     bar.border_fill_color = '#00000000' 
@@ -149,6 +151,7 @@ def firestore_data_view(request):
 
     for numeric_column, color in zip(numeric_columns, original_cmap):
         density_plot = figure(title=f'{numeric_column} Density Plot', height=300, width=335, background_fill_color="rgba(0, 0, 0, 0)", margin=(10, 10, 10, 10), toolbar_location=None, tools="hover")
+        density_plot.title.text_color = "#fff"
 
         for class_name in class_names:
             density_data = data[data['Class'] == class_name][numeric_column]
@@ -166,6 +169,7 @@ def firestore_data_view(request):
             density_plot.quad(top=hist, bottom=0, left=edges[:-1], right=edges[1:], fill_color=color, line_color='#00000000', alpha=0.7, legend_label=f'{numeric_column}')
 
         # Customize the density plot (optional)
+        density_plot.axis.major_label_text_color = '#fff'
         density_plot.xaxis.major_label_text_font_size = '10pt'
         density_plot.yaxis.major_label_text_font_size = '10pt'
         density_plot.legend.label_text_font_size = '10pt'
@@ -174,6 +178,7 @@ def firestore_data_view(request):
         density_plot.ygrid.grid_line_color = None
         density_plot.legend.background_fill_color = '#00000000'
         density_plot.legend.border_line_color = "#00000000"
+        density_plot.legend.label_text_color = '#fff'
 
         density_plots.append(density_plot)
     
@@ -196,7 +201,7 @@ def firestore_data_view(request):
     reversed_y_categories = list(reversed(correlations.columns))
 
     # Create a Bokeh figure
-    relations = figure(tools="hover", height=450, width=500, background_fill_color='rgba(0, 0, 0, 0)', x_range=list(correlations.index), y_range=reversed_y_categories)
+    relations = figure(tools="hover", height=350, width=600, background_fill_color='rgba(0, 0, 0, 0)', x_range=list(correlations.index), y_range=reversed_y_categories)
 
     # Create a color mapper
     original_cmap = ['#FFC959', '#FF9B56', '#ED715E', '#CE4D68', '#A2346F', '#8753A0', '#4C70BD', '#0086C1', '#0096B0', '#1AA196']
@@ -229,6 +234,7 @@ def firestore_data_view(request):
     relations.add_layout(color_bar, 'right')
 
     # Customize plot properties
+    relations.axis.major_label_text_color = '#fff'
     relations.title.text_font_size = "16px"
     relations.axis.major_label_standoff = 12
     relations.xaxis.major_label_orientation = 1
@@ -395,13 +401,14 @@ def export (request):
         df.append(doc.to_dict())
 
     data = pd.DataFrame(df)
-        # Save DataFrame as CSV
-    data.to_csv('productivity_data.csv', index=False)
+    
+    # Save DataFrame as CSV
+    data.to_csv('rice_data.csv', index=False)
 
     # Open the file in binary mode for reading
     with open('rice_data.csv', 'rb') as csv_file:
         response = HttpResponse(csv_file.read(), content_type='text/csv')
-        response['Content-Disposition'] = 'attachment; filename=productivity_data.csv'
+        response['Content-Disposition'] = 'attachment; filename=rice_data.csv'
 
     # Return the response
     return response
@@ -436,7 +443,8 @@ def eda_reg(request):
 
     for numeric_column, color in zip(numeric_columns, original_cmap):
         density_plot = figure(title=f'{numeric_column}', height=300, width=335, background_fill_color="rgba(0, 0, 0, 0)", margin=(10, 10, 10, 10), toolbar_location=None, tools="hover")
-        
+        density_plot.title.text_color = "#fff"
+
         # Create kernel density estimate
         values = data[numeric_column].dropna()
         kde = gaussian_kde(values)
@@ -452,6 +460,7 @@ def eda_reg(request):
         density_plot.add_layout(band)
 
         # Customize the density plot (optional)
+        density_plot.axis.major_label_text_color = '#fff'
         density_plot.xaxis.major_label_text_font_size = '10pt'
         density_plot.yaxis.major_label_text_font_size = '12pt'
         density_plot.legend.label_text_font_size = '12pt'
@@ -460,6 +469,7 @@ def eda_reg(request):
         density_plot.ygrid.grid_line_color = None
         density_plot.legend.background_fill_color = '#00000000'
         density_plot.legend.border_line_color = "#00000000"
+        density_plot.legend.label_text_color = '#fff'
 
         density_plots.append(density_plot)
     
@@ -519,6 +529,7 @@ def eda_reg(request):
     relations.add_layout(color_bar, 'right')
 
     # Customize plot properties
+    relations.axis.major_label_text_color = '#fff'
     relations.title.text_font_size = "16px"
     relations.axis.major_label_standoff = 12
     relations.xaxis.major_label_orientation = 1

@@ -4,11 +4,32 @@
 {% block title %}Login{% endblock %}
 
 {% block content %} 
-{% if message %}
+{% if success %}
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const alertMessage = document.getElementById('alert-message');
         const customAlert = document.getElementById('custom-alert');
+
+        if (alertMessage && customAlert) {
+            alertMessage.innerText = "{{ success }}";
+            customAlert.classList.add('show'); // Add a class to handle visibility
+        }
+    });
+
+    function closeAlert() {
+        const customAlert = document.getElementById('custom-alert');
+
+        if (customAlert) {
+            customAlert.classList.remove('show'); // Remove the class to hide the alert
+        }
+    }
+</script>
+{% endif %}
+{% if message %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const alertMessage = document.getElementById('alert-message-danger');
+        const customAlert = document.getElementById('custom-alert-danger');
 
         if (alertMessage && customAlert) {
             alertMessage.innerText = "{{ message }}";
@@ -17,7 +38,7 @@
     });
 
     function closeAlert() {
-        const customAlert = document.getElementById('custom-alert');
+        const customAlert = document.getElementById('custom-alert-danger');
 
         if (customAlert) {
             customAlert.classList.remove('show'); // Remove the class to hide the alert
@@ -54,8 +75,16 @@
     </form>
     <div id="custom-alert" class="alert-container">
         {% load static %}
-        <center><img src="{% static 'image/danger.png' %}" class="danger"></center>
+        <center><span class="material-symbols-outlined done" style="color: #329CCE; font-size: 100px; font-weight: bolder;">
+            done
+        </span></center>
         <p id="alert-message"></p>
+        <span class="close-btn" onclick="closeAlert()">×</span>
+    </div>
+    <div id="custom-alert-danger" class="alert-container">
+        {% load static %}
+        <center><img src="{% static 'image/danger.png' %}" class="danger"></center>
+        <p id="alert-message-danger"></p>
         <span class="close-btn" onclick="closeAlert()">×</span>
     </div>
 </div>
