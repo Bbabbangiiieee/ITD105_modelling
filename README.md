@@ -45,7 +45,7 @@ After logging in, users are directed to this page where information about the da
 This page shows the data visualization of the datasets
 
 ![image](https://github.com/Bbabbangiiieee/ITD105_modelling/blob/main/test/ml/ml_app/static/image/eda.png)
-![image]https://github.com/Bbabbangiiieee/ITD105_modelling/blob/main/test/ml/ml_app/static/image/eda1.png
+![image](https://github.com/Bbabbangiiieee/ITD105_modelling/blob/main/test/ml/ml_app/static/image/eda1.png)
 
 ### Prediction
 This page gets an input from the user and displays the prediction by the application
